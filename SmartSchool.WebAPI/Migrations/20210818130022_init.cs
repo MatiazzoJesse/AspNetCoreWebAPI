@@ -11,7 +11,7 @@ namespace SmartSchool.WebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(nullable: true),
                     Sobrenome = table.Column<string>(nullable: true),
                     Telefone = table.Column<string>(nullable: true)
@@ -26,7 +26,7 @@ namespace SmartSchool.WebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -39,7 +39,7 @@ namespace SmartSchool.WebAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(nullable: true),
                     ProfessorId = table.Column<int>(nullable: false)
                 },
@@ -76,6 +76,74 @@ namespace SmartSchool.WebAPI.Migrations
                         principalTable: "Disciplinas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Alunos",
+                columns: new[] { "Id", "Nome", "Sobrenome", "Telefone" },
+                values: new object[,]
+                {
+                    { 1, "Marta", "Kent", "33225555" },
+                    { 2, "Paula", "Isabela", "3354288" },
+                    { 3, "Laura", "Antonia", "55668899" },
+                    { 4, "Luiza", "Maria", "6565659" },
+                    { 5, "Lucas", "Machado", "565685415" },
+                    { 6, "Pedro", "Alvares", "456454545" },
+                    { 7, "Paulo", "José", "9874512" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Professores",
+                columns: new[] { "Id", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "Lauro" },
+                    { 2, "Roberto" },
+                    { 3, "Ronaldo" },
+                    { 4, "Rodrigo" },
+                    { 5, "Alexandre" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Disciplinas",
+                columns: new[] { "Id", "Nome", "ProfessorId" },
+                values: new object[,]
+                {
+                    { 1, "Matemática", 1 },
+                    { 2, "Física", 2 },
+                    { 3, "Português", 3 },
+                    { 4, "Inglês", 4 },
+                    { 5, "Programação", 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AlunosDisciplinas",
+                columns: new[] { "AlunoId", "DisciplinaId" },
+                values: new object[,]
+                {
+                    { 2, 1 },
+                    { 4, 5 },
+                    { 2, 5 },
+                    { 1, 5 },
+                    { 7, 4 },
+                    { 6, 4 },
+                    { 5, 4 },
+                    { 4, 4 },
+                    { 1, 4 },
+                    { 7, 3 },
+                    { 5, 5 },
+                    { 6, 3 },
+                    { 7, 2 },
+                    { 6, 2 },
+                    { 3, 2 },
+                    { 2, 2 },
+                    { 1, 2 },
+                    { 7, 1 },
+                    { 6, 1 },
+                    { 4, 1 },
+                    { 3, 1 },
+                    { 3, 3 },
+                    { 7, 5 }
                 });
 
             migrationBuilder.CreateIndex(

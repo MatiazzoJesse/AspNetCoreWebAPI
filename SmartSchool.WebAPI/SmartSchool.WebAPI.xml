@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartSchool.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SmartSchool.WebAPI.Controllers.AlunoController">
+            <summary>
+            Api de Aluno
+            </summary>    
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Get">
+            <summary>
+            Método que retorna todos os alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.teste">
+            <summary>
+            Método que vai trazer apenas o modeto AlunoRegisterDto para teste
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Método para trazer um aluno pelo id
+            </summary>
+            <param name="id">Id do aluno</param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.GetByName(System.String)">
+            <summary>
+            Método que retorna o Aluno através do nome
+            </summary>
+            <param name="nome"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Post(SmartSchool.WebAPI.Dtos.AlunoRegisterDto)">
+            <summary>
+            Método para adicionar um aluno
+            </summary>
+            <param name="model">modelo do aluno</param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Put(System.Int32,SmartSchool.WebAPI.Dtos.AlunoRegisterDto)">
+            <summary>
+            Método para alterar um aluno
+            </summary>
+            <param name="id">Id do aluno</param>
+            <param name="model">Modelo do aluno</param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Delete(System.Int32)">
+            <summary>
+            Exluir um aluno
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SmartSchool.WebAPI.Dtos.AlunoRegisterDto">
+            <summary>
+            Esse é o DTO para efetuar o salvamento no banco de dados
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Dtos.AlunoRegisterDto.Id">
+            <summary>
+            chave primaria do aluno
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Dtos.AlunoRegisterDto.Matricula">
+            <summary>
+            Matricula do aluno
+            </summary>
+            <value></value>
+        </member>
+    </members>
+</doc>

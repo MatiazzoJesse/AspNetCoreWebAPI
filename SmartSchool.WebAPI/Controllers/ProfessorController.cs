@@ -11,7 +11,8 @@ using SmartSchool.WebAPI.Models;
 namespace SmartSchool.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiversion}/[controller]")]
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository _repository;

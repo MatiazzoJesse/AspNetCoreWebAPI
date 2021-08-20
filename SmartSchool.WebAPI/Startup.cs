@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartSchool.WebAPI.Data;
+using AutoMapper;
 
 namespace SmartSchool.WebAPI
 {
@@ -29,12 +30,14 @@ namespace SmartSchool.WebAPI
         {
             services.AddDbContext<SmartContext>(context => context.UseSqlite(Configuration.GetConnectionString("Default")));
 
-            services.AddScoped<IRepository, Repository>();
-
             services.AddControllers()
             //Colocando uma configuração para evitar ciclo de loop infinito ao efetuar consultas de NxN
             .AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling =
             Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IRepository, Repository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

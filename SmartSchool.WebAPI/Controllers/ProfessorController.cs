@@ -1,7 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.Data;
+using SmartSchool.WebAPI.Dtos;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Controllers
@@ -11,17 +15,26 @@ namespace SmartSchool.WebAPI.Controllers
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ProfessorController(IRepository repository)
+        public ProfessorController(IRepository repository, IMapper mapper)
         {
+            _mapper = mapper;
             _repository = repository;
         }
         [HttpGet]
         public IActionResult Get()
         {
             var dados = _repository.GetAllProfessores(true);
-            return Ok(dados);
+            return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(dados));
         }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok(new ProfessorRegisterDto());
+        }
+
         [HttpGet("GetById")]
         public IActionResult GetById(int id)
         {
@@ -32,7 +45,7 @@ namespace SmartSchool.WebAPI.Controllers
             }
             else
             {
-                return Ok(prof);
+                return Ok(_mapper.Map<ProfessorDto>(prof));
             }
         }
         [HttpGet("GetByName")]
@@ -45,16 +58,17 @@ namespace SmartSchool.WebAPI.Controllers
             }
             else
             {
-                return Ok(prof);
+                return Ok(_mapper.Map<ProfessorDto>(prof));
             }
         }
         [HttpPost]
-        public IActionResult Post(Professor professor)
+        public IActionResult Post(ProfessorRegisterDto model)
         {
+            var professor = _mapper.Map<Professor>(model);
             _repository.Add(professor);
             if (_repository.SaveChanges())
             {
-                return Ok(professor);
+                return Created($"/api/Professor/GetById?id={professor.Id}", _mapper.Map<ProfessorDto>(professor));
             }
             else
             {
@@ -62,7 +76,7 @@ namespace SmartSchool.WebAPI.Controllers
             }
         }
         [HttpPut]
-        public IActionResult Put(int id, Professor professor)
+        public IActionResult Put(int id, ProfessorRegisterDto model)
         {
             var prof = _repository.GetProfessorById(id);
             if (prof == null)
@@ -71,10 +85,11 @@ namespace SmartSchool.WebAPI.Controllers
             }
             else
             {
-                _repository.Update(professor);
+                _mapper.Map(model, prof);
+                _repository.Update(prof);
                 if (_repository.SaveChanges())
                 {
-                    return Ok(professor);
+                    return Created($"/api/professor/GetById?id={prof.Id}", _mapper.Map<ProfessorDto>(prof));
                 }
                 else
                 {
@@ -83,7 +98,7 @@ namespace SmartSchool.WebAPI.Controllers
             }
         }
         [HttpPatch]
-        public IActionResult Patch(int id, Professor professor)
+        public IActionResult Patch(int id, ProfessorRegisterDto model)
         {
             var prof = _repository.GetProfessorById(id);
             if (prof == null)
@@ -92,10 +107,11 @@ namespace SmartSchool.WebAPI.Controllers
             }
             else
             {
-                _repository.Update(professor);
+                _mapper.Map(model, prof);
+                _repository.Update(prof);
                 if (_repository.SaveChanges())
                 {
-                    return Ok(professor);
+                    return Created($"/api/professor/GetById?id={prof.Id}", _mapper.Map<ProfessorDto>(prof));
                 }
                 else
                 {
@@ -114,10 +130,12 @@ namespace SmartSchool.WebAPI.Controllers
             else
             {
                 _repository.Delete(prof);
-                if(_repository.SaveChanges()){
-                return Ok("Professor excluido com sucesso");
+                if (_repository.SaveChanges())
+                {
+                    return Ok("Professor excluido com sucesso");
                 }
-                else{
+                else
+                {
                     return BadRequest("Professor não foi deletado");
                 }
             }

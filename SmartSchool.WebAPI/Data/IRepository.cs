@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using SmartSchool.WebAPI.Helpers;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.WebAPI.Data
@@ -10,15 +13,15 @@ namespace SmartSchool.WebAPI.Data
         bool SaveChanges();
 
         //CONSULTAS ALUNOS
-        Aluno[] GetAllAlunos(bool includeProfessor);
-        Aluno[] GetAllAlunosbyDisciplinasId(int disciplinaId, bool includeProfessor = false);
-        Aluno GetAlunoById(int alunoId, bool includeProfessor = false);
-        Aluno GetAlunoByName(string name, bool includeprofessor = false);
+        Task<PageList<Aluno>> GetAllAlunosAsync(PageParams pageParams, bool includeProfessor = false);
+        Task<Aluno[]> GetAllAlunosbyDisciplinasIdAsync(int disciplinaId, bool includeProfessor = false);
+        Task<Aluno> GetAlunoByIdAsync(int alunoId, bool includeProfessor = false);
+        Task<Aluno> GetAlunoByNameAsync(string name, bool includeprofessor = false);
 
         //CONSULTAS PROFESSORES
-        Professor[] GetAllProfessores(bool includeAlunos = false);
-        Professor[] GetAllProfessoresbyAlunoId(int disciplinaId, bool includeAlunos = false);
-        Professor GetProfessorById(int idProfessor, bool includeAlunos = false);
-        Professor GetProfessorByName(string name, bool includeAlunos = false);
+        Task<Professor[]> GetAllProfessoresAsync(bool includeAlunos = false);
+        Task<Professor[]> GetAllProfessoresbyAlunoIdAsync(int disciplinaId, bool includeAlunos = false);
+        Task<Professor> GetProfessorByIdAsync(int idProfessor, bool includeAlunos = false);
+        Task<Professor> GetProfessorByNameAsync(string name, bool includeAlunos = false);
     }
 }

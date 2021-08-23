@@ -9,7 +9,7 @@
             Api de Aluno
             </summary>    
         </member>
-        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Get">
+        <member name="M:SmartSchool.WebAPI.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
             <summary>
             Método que retorna todos os alunos
             </summary>
